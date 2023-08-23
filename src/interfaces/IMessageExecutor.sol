@@ -37,20 +37,4 @@ interface IMessageExecutor {
     address from
   ) external;
 
-  /**
-   * @notice Execute a batch messages from the origin chain.
-   * @dev Should authenticate that the call has been performed by the bridge transport layer.
-   * @dev Must revert if one of the messages fails.
-   * @dev Must emit the `MessageIdExecuted` event once messages have been executed.
-   * @param messages Array of messages being executed
-   * @param messageId ID uniquely identifying the messages
-   * @param fromChainId ID of the chain that dispatched the messages
-   * @param from Address of the sender on the origin chain
-   */
-  function executeMessageBatch(
-    MessageLib.Message[] calldata messages,
-    bytes32 messageId,
-    uint256 fromChainId,
-    address from
-  ) external;
 }

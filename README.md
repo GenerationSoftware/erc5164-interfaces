@@ -1,6 +1,13 @@
-# Foundry template
+# ERC5164 Interfaces
 
-Template to kickstart a Foundry project.
+A project that includes the core [ERC5164](https://eips.ethereum.org/EIPS/eip-5164) interfaces:
+
+- interfaces/IMessageDispatcher
+- interfaces/IMessageExecutor
+
+And a helper contract:
+
+- abstract/ExecutorAware
 
 ## Getting started
 
