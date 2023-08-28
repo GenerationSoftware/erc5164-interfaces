@@ -14,6 +14,13 @@ error ExecutorZeroAddress();
  *      to ensure that messages are sent by a trusted `MessageExecutor` contract.
  */
 abstract contract ExecutorAware {
+  /* ============ Events ============ */
+
+  /// @notice Emitted when a new trusted executor is set.
+  /// @param prevExecutor The previous trusted executor address
+  /// @param newExecutor The new trusted executor address
+  event SetTrustedExecutor(address indexed prevExecutor, address indexed newExecutor);
+
   /* ============ Variables ============ */
 
   /// @notice Address of the trusted executor contract.
@@ -55,6 +62,7 @@ abstract contract ExecutorAware {
    */
   function _setTrustedExecutor(address _executor) internal {
     if (address(0) == _executor) revert ExecutorZeroAddress();
+    emit SetTrustedExecutor(_trustedExecutor, _executor);
     _trustedExecutor = _executor;
   }
 
