@@ -1,6 +1,8 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
-pragma solidity ^0.8.16;
+/// @notice Thrown if the executor is set to the zero address.
+error ExecutorZeroAddress();
 
 /**
  * @title ExecutorAware abstract contract
@@ -15,7 +17,7 @@ abstract contract ExecutorAware {
   /* ============ Variables ============ */
 
   /// @notice Address of the trusted executor contract.
-  address public immutable trustedExecutor;
+  address private _trustedExecutor;
 
   /* ============ Constructor ============ */
 
@@ -24,21 +26,37 @@ abstract contract ExecutorAware {
    * @param _executor Address of the `MessageExecutor` contract
    */
   constructor(address _executor) {
-    require(_executor != address(0), "executor-not-zero-address");
-    trustedExecutor = _executor;
+    _setTrustedExecutor(_executor);
   }
 
-  /* ============ External Functions ============ */
+  /* ============ Public Functions ============ */
 
   /**
    * @notice Check which executor this contract trust.
    * @param _executor Address to check
    */
   function isTrustedExecutor(address _executor) public view returns (bool) {
-    return _executor == trustedExecutor;
+    return _executor == _trustedExecutor;
+  }
+
+  /**
+   * @notice Getter for the internal trusted executor.
+   * @return The trusted executor address
+   */
+  function trustedExecutor() public view returns (address) {
+    return _trustedExecutor;
   }
 
   /* ============ Internal Functions ============ */
+
+  /**
+   * @notice Sets a new trusted executor.
+   * @param _executor The new address to trust as the executor
+   */
+  function _setTrustedExecutor(address _executor) internal {
+    if (address(0) == _executor) revert ExecutorZeroAddress();
+    _trustedExecutor = _executor;
+  }
 
   /**
    * @notice Retrieve messageId from message data.
