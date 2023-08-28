@@ -17,9 +17,9 @@ abstract contract ExecutorAware {
   /* ============ Events ============ */
 
   /// @notice Emitted when a new trusted executor is set.
-  /// @param prevExecutor The previous trusted executor address
+  /// @param previousExecutor The previous trusted executor address
   /// @param newExecutor The new trusted executor address
-  event SetTrustedExecutor(address indexed prevExecutor, address indexed newExecutor);
+  event SetTrustedExecutor(address indexed previousExecutor, address indexed newExecutor);
 
   /* ============ Variables ============ */
 
