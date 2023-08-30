@@ -1,6 +1,8 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
-pragma solidity ^0.8.16;
+/// @notice Thrown if the executor is set to the zero address.
+error ExecutorZeroAddress();
 
 /**
  * @title ExecutorAware abstract contract
@@ -12,10 +14,17 @@ pragma solidity ^0.8.16;
  *      to ensure that messages are sent by a trusted `MessageExecutor` contract.
  */
 abstract contract ExecutorAware {
+  /* ============ Events ============ */
+
+  /// @notice Emitted when a new trusted executor is set.
+  /// @param previousExecutor The previous trusted executor address
+  /// @param newExecutor The new trusted executor address
+  event SetTrustedExecutor(address indexed previousExecutor, address indexed newExecutor);
+
   /* ============ Variables ============ */
 
   /// @notice Address of the trusted executor contract.
-  address public immutable trustedExecutor;
+  address public trustedExecutor;
 
   /* ============ Constructor ============ */
 
@@ -24,11 +33,10 @@ abstract contract ExecutorAware {
    * @param _executor Address of the `MessageExecutor` contract
    */
   constructor(address _executor) {
-    require(_executor != address(0), "executor-not-zero-address");
-    trustedExecutor = _executor;
+    _setTrustedExecutor(_executor);
   }
 
-  /* ============ External Functions ============ */
+  /* ============ Public Functions ============ */
 
   /**
    * @notice Check which executor this contract trust.
@@ -41,44 +49,13 @@ abstract contract ExecutorAware {
   /* ============ Internal Functions ============ */
 
   /**
-   * @notice Retrieve messageId from message data.
-   * @return _msgDataMessageId ID uniquely identifying the message that was executed
+   * @notice Sets a new trusted executor.
+   * @param _executor The new address to trust as the executor
    */
-  function _messageId() internal pure returns (bytes32 _msgDataMessageId) {
-    _msgDataMessageId;
-
-    if (msg.data.length >= 84) {
-      assembly {
-        _msgDataMessageId := calldataload(sub(calldatasize(), 84))
-      }
-    }
+  function _setTrustedExecutor(address _executor) internal {
+    if (address(0) == _executor) revert ExecutorZeroAddress();
+    emit SetTrustedExecutor(trustedExecutor, _executor);
+    trustedExecutor = _executor;
   }
 
-  /**
-   * @notice Retrieve fromChainId from message data.
-   * @return _msgDataFromChainId ID of the chain that dispatched the messages
-   */
-  function _fromChainId() internal pure returns (uint256 _msgDataFromChainId) {
-    _msgDataFromChainId;
-
-    if (msg.data.length >= 52) {
-      assembly {
-        _msgDataFromChainId := calldataload(sub(calldatasize(), 52))
-      }
-    }
-  }
-
-  /**
-   * @notice Retrieve signer address from message data.
-   * @return _signer Address of the signer
-   */
-  function _msgSender() internal view returns (address payable _signer) {
-    _signer = payable(msg.sender);
-
-    if (msg.data.length >= 20 && isTrustedExecutor(_signer)) {
-      assembly {
-        _signer := shr(96, calldataload(sub(calldatasize(), 20)))
-      }
-    }
-  }
 }
