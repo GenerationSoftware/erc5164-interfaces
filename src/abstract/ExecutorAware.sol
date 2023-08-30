@@ -24,7 +24,7 @@ abstract contract ExecutorAware {
   /* ============ Variables ============ */
 
   /// @notice Address of the trusted executor contract.
-  address private _trustedExecutor;
+  address public trustedExecutor;
 
   /* ============ Constructor ============ */
 
@@ -43,15 +43,7 @@ abstract contract ExecutorAware {
    * @param _executor Address to check
    */
   function isTrustedExecutor(address _executor) public view returns (bool) {
-    return _executor == _trustedExecutor;
-  }
-
-  /**
-   * @notice Getter for the internal trusted executor.
-   * @return The trusted executor address
-   */
-  function trustedExecutor() public view returns (address) {
-    return _trustedExecutor;
+    return _executor == trustedExecutor;
   }
 
   /* ============ Internal Functions ============ */
@@ -62,8 +54,8 @@ abstract contract ExecutorAware {
    */
   function _setTrustedExecutor(address _executor) internal {
     if (address(0) == _executor) revert ExecutorZeroAddress();
-    emit SetTrustedExecutor(_trustedExecutor, _executor);
-    _trustedExecutor = _executor;
+    emit SetTrustedExecutor(trustedExecutor, _executor);
+    trustedExecutor = _executor;
   }
 
 }
