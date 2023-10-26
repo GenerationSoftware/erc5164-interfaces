@@ -36,5 +36,4 @@ interface IMessageExecutor {
     uint256 fromChainId,
     address from
   ) external;
-
 }

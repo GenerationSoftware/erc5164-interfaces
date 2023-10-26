@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.16;
 
 /**
  * @title ExecutorParserLib
  * @notice Library to parse additional data from Executor messages.
  */
 library ExecutorParserLib {
-
   /// @notice Parses the message ID from `msg.data`.
   /// @return The bytes32 message ID uniquely identifying the message that was executed
   function messageId() internal pure returns (bytes32) {
@@ -42,5 +41,4 @@ library ExecutorParserLib {
     }
     return _sender;
   }
-
 }

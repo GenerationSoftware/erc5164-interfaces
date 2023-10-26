@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.16;
 
 import "forge-std/Test.sol";
 
@@ -7,7 +7,6 @@ import { ExecutorZeroAddress } from "../../src/abstract/ExecutorAware.sol";
 import { ExecutorAwareHarness } from "../harness/ExecutorAwareHarness.sol";
 
 contract ExecutorAwareTest is Test {
-
   /* ============ Events ============ */
 
   event SetTrustedExecutor(address indexed previousExecutor, address indexed newExecutor);
@@ -60,5 +59,4 @@ contract ExecutorAwareTest is Test {
     vm.expectRevert(abi.encodeWithSelector(ExecutorZeroAddress.selector));
     target.setTrustedExecutor(address(0));
   }
-
 }
