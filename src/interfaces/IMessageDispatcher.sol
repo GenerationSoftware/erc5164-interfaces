@@ -29,7 +29,7 @@ interface IMessageDispatcher {
    * @param toChainId ID of the receiving chain
    * @param to Address on the receiving chain that will receive `data`
    * @param data Data dispatched to the receiving chain
-   * @return bytes32 ID uniquely identifying the message
+   * @return ID uniquely identifying the message
    */
   function dispatchMessage(
     uint256 toChainId,
@@ -41,7 +41,7 @@ interface IMessageDispatcher {
    * @notice Retrieves address of the MessageExecutor contract on the receiving chain.
    * @dev Must revert if `toChainId` is not supported.
    * @param toChainId ID of the chain with which MessageDispatcher is communicating
-   * @return address MessageExecutor contract address
+   * @return MessageExecutor contract address
    */
   function getMessageExecutorAddress(uint256 toChainId) external returns (address);
 }

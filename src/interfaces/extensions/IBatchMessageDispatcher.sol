@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
 
-import { MessageLib } from "../libraries/MessageLib.sol";
-import { IMessageDispatcher } from "./IMessageDispatcher.sol";
+import { IMessageDispatcher } from "../IMessageDispatcher.sol";
+import { MessageLib } from "../../libraries/MessageLib.sol";
 
 /**
- * @title ERC-5164: Cross-Chain Execution Standard
+ * @title ERC-5164: Cross-Chain Execution Standard, optional BatchMessageDispatcher extension
+ * @dev IMessageDispatcher interface extended to support batch messaging.
  * @dev See https://eips.ethereum.org/EIPS/eip-5164
  */
 interface IBatchMessageDispatcher is IMessageDispatcher {
@@ -29,7 +30,7 @@ interface IBatchMessageDispatcher is IMessageDispatcher {
    * @dev Must emit the `MessageBatchDispatched` event when successfully dispatched.
    * @param toChainId ID of the receiving chain
    * @param messages Array of Message dispatched
-   * @return bytes32 ID uniquely identifying the `messages`
+   * @return ID uniquely identifying the `messages`
    */
   function dispatchMessageBatch(
     uint256 toChainId,

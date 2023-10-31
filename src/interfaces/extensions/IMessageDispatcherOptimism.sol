@@ -1,15 +1,18 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
 
-import { IMessageDispatcher } from "./IMessageDispatcher.sol";
-import { MessageLib, IBatchMessageDispatcher } from "./IBatchMessageDispatcher.sol";
+import {
+  MessageLib,
+  IMessageDispatcher,
+  IBatchMessageDispatcher
+} from "./IBatchMessageDispatcher.sol";
 
 /**
  * @title ERC-5164: Cross-Chain Execution Standard
  * @dev IMessageDispatcher interface extended to support a custom gas limit for Optimism.
  * @dev See https://eips.ethereum.org/EIPS/eip-5164
  */
-interface IMessageDispatcherOptimism is IMessageDispatcher, IBatchMessageDispatcher {
+interface IMessageDispatcherOptimism is IBatchMessageDispatcher {
   /**
    * @notice Dispatch and process a message to the receiving chain.
    * @dev Must compute and return an ID uniquely identifying the message.
@@ -18,7 +21,7 @@ interface IMessageDispatcherOptimism is IMessageDispatcher, IBatchMessageDispatc
    * @param to Address on the receiving chain that will receive `data`
    * @param data Data dispatched to the receiving chain
    * @param gasLimit Gas limit at which the message will be executed on Optimism
-   * @return bytes32 ID uniquely identifying the message
+   * @return ID uniquely identifying the message
    */
   function dispatchMessageWithGasLimit(
     uint256 toChainId,
@@ -34,7 +37,7 @@ interface IMessageDispatcherOptimism is IMessageDispatcher, IBatchMessageDispatc
    * @param toChainId ID of the receiving chain
    * @param messages Array of Message dispatched
    * @param gasLimit Gas limit at which the message will be executed on Optimism
-   * @return bytes32 ID uniquely identifying the `messages`
+   * @return ID uniquely identifying the `messages`
    */
   function dispatchMessageWithGasLimitBatch(
     uint256 toChainId,
