@@ -4,13 +4,13 @@ pragma solidity ^0.8.16;
 import {
   MessageLib,
   IMessageDispatcher,
+  ISingleMessageDispatcher,
   IBatchMessageDispatcher
 } from "./IBatchMessageDispatcher.sol";
 
 /**
- * @title ERC-5164: Cross-Chain Execution Standard
- * @dev IMessageDispatcher interface extended to support Arbitrum two steps message dispatch.
- * @dev See https://eips.ethereum.org/EIPS/eip-5164
+ * @title MessageDispatcherArbitrum interface
+ * @dev IBatchMessageDispatcher interface extended to support Arbitrum two steps message dispatch.
  */
 interface IMessageDispatcherArbitrum is IBatchMessageDispatcher {
   /**

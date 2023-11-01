@@ -3,6 +3,7 @@ pragma solidity ^0.8.16;
 
 import {
   IMessageExecutor,
+  ISingleMessageExecutor,
   IBatchMessageExecutor
 } from "../interfaces/extensions/IBatchMessageExecutor.sol";
 
@@ -73,7 +74,10 @@ library MessageLib {
     address from
   ) internal pure returns (bytes memory) {
     return
-      abi.encodeCall(IMessageExecutor.executeMessage, (to, data, messageId, fromChainId, from));
+      abi.encodeCall(
+        ISingleMessageExecutor.executeMessage,
+        (to, data, messageId, fromChainId, from)
+      );
   }
 
   /**
