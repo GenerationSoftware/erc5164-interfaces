@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "forge-std/Test.sol";
+import { Test } from "forge-std/Test.sol";
 
 import { ExecutorParserLibWrapper } from "../wrappers/ExecutorParserLibWrapper.sol";
 
@@ -21,7 +21,6 @@ contract ExecutorParserLibTest is Test {
   }
 
   /* ============ messageId ============ */
-
   function testMessageId() public {
     executeData = abi.encodePacked(
       abi.encodeWithSelector(parser.messageId.selector),

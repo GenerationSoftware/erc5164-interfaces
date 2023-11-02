@@ -3,9 +3,9 @@ pragma solidity ^0.8.16;
 
 import {
   IMessageExecutor,
-  ISingleMessageExecutor,
-  IBatchMessageExecutor
-} from "../interfaces/extensions/IBatchMessageExecutor.sol";
+  ISingleMessageExecutor
+} from "../interfaces/extensions/ISingleMessageExecutor.sol";
+import { IBatchMessageExecutor } from "../interfaces/extensions/IBatchMessageExecutor.sol";
 
 /**
  * @title MessageLib
