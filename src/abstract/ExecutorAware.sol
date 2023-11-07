@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.16;
 
 /// @notice Thrown if the executor is set to the zero address.
 error ExecutorZeroAddress();
@@ -57,5 +57,4 @@ abstract contract ExecutorAware {
     emit SetTrustedExecutor(trustedExecutor, _executor);
     trustedExecutor = _executor;
   }
-
 }
